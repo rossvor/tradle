@@ -32,6 +32,9 @@ module.exports = {
         reveal: "reveal 200ms forwards",
         pop: "pop 500ms ease-out forwards",
       },
+      gridColumn: {
+        "span-5": "span 5 / span 5",
+      },
     },
   },
   plugins: [],

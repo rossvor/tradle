@@ -6,6 +6,7 @@ export interface SettingsData {
   distanceUnit: "km" | "miles";
   theme: "light" | "dark";
   fuzzyDistance: boolean;
+  hideDirection: boolean;
 }
 
 const defaultSettingsData: SettingsData = {
@@ -16,6 +17,7 @@ const defaultSettingsData: SettingsData = {
     ? "dark"
     : "light",
   fuzzyDistance: false,
+  hideDirection: false,
 };
 
 function loadSettings(): SettingsData {

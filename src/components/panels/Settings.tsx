@@ -53,6 +53,19 @@ export function Settings({
             {t("settings.fuzzyDistance")}
           </label>
         </div>
+        <div className="flex p-1">
+          <input
+            type="checkbox"
+            id="setting-hideDirection"
+            checked={settingsData.hideDirection}
+            onChange={(e) =>
+              updateSettings({ hideDirection: e.target.checked })
+            }
+          />
+          <label className="flex-1 ml-2" htmlFor="setting-hideDirection">
+            {t("settings.hideDirection")}
+          </label>
+        </div>
       </div>
     </Panel>
   );

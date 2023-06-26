@@ -61,7 +61,9 @@ export function formatFuzzyDistance(distanceInMeters: number): string {
     return "Lukewarm";
   } else if (distanceInKm > 1000) {
     return "Warm";
-  } else {
+  } else if (distanceInKm > 0) {
     return "Hot";
+  } else {
+    return "🎉";
   }
 }

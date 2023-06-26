@@ -58,7 +58,7 @@ export function GuessRow({
   countryInputRef,
   isAprilFools = false,
 }: GuessRowProps) {
-  const { distanceUnit, theme, fuzzyDistance } = settingsData;
+  const { distanceUnit, theme, fuzzyDistance, hideDirection } = settingsData;
   const proximity = guess != null ? computeProximityPercent(guess.distance) : 0;
   const squares = generateSquareCharacters(proximity, theme);
 
@@ -85,6 +85,16 @@ export function GuessRow({
       countryInputRef?.current.focus();
     }
   }, [countryInputRef]);
+
+  // We need to make below dance to make Tailwind build the appropriate col-span-N classes.
+  // Simply concatenating the class name doesn't work.
+  const spanN = 3 + (hideDirection ? 1 : 0) + (fuzzyDistance ? 1 : 0);
+  let countryCellSpan = " col-span-3";
+  if (spanN === 4) {
+    countryCellSpan = " col-span-4";
+  } else if (spanN === 5) {
+    countryCellSpan = " col-span-5";
+  }
 
   switch (animationState) {
     case "NOT_STARTED":
@@ -131,7 +141,7 @@ export function GuessRow({
             className={
               "rounded-lg flex items-center h-8 animate-reveal pl-2" +
               (guess?.distance === 0 ? " bg-oec-yellow" : " bg-gray-200") +
-              (fuzzyDistance ? " col-span-4" : " col-span-3")
+              countryCellSpan
             }
           >
             <p className="text-ellipsis overflow-hidden whitespace-nowrap">
@@ -153,21 +163,23 @@ export function GuessRow({
               ? formatDistance(guess.distance, distanceUnit)
               : null}
           </div>
-          <div
-            className={
-              guess?.distance === 0
-                ? "bg-oec-yellow rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal"
-                : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal"
-            }
-          >
-            {guess?.distance === 0
-              ? "🎉"
-              : guess && isAprilFools
-              ? "⁇"
-              : guess
-              ? DIRECTION_ARROWS[guess.direction]
-              : null}
-          </div>
+          {!hideDirection && (
+            <div
+              className={
+                guess?.distance === 0
+                  ? "bg-oec-yellow rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal"
+                  : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal"
+              }
+            >
+              {guess?.distance === 0
+                ? "🎉"
+                : guess && isAprilFools
+                ? "⁇"
+                : guess
+                ? DIRECTION_ARROWS[guess.direction]
+                : null}
+            </div>
+          )}
           {!fuzzyDistance && (
             <div
               className={
