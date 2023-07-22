@@ -51,6 +51,7 @@ export function Game({ settingsData }: GameProps) {
       latitude: 42.546245,
       longitude: 1.601554,
       name: "Land of Oz",
+      total_trade_thousands: 1337,
     };
   }
 
@@ -95,10 +96,13 @@ export function Game({ settingsData }: GameProps) {
         return;
       }
 
+      const total_trade_thousands =
+        country.total_trade_thousands - guessedCountry.total_trade_thousands;
       const newGuess = {
         name: currentGuess,
         distance: geolib.getDistance(guessedCountry, country),
         direction: geolib.getCompassDirection(guessedCountry, country),
+        tradeDistance: total_trade_thousands,
       };
 
       addGuess(newGuess);

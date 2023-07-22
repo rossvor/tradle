@@ -35,6 +35,7 @@ export function InfosFr({ isOpen, close, settingsData }: InfosProps) {
                 name: "Chili",
                 direction: "NE",
                 distance: 13_557_000,
+                tradeDistance: 1337,
               },
             ]}
             settingsData={settingsData}
@@ -55,6 +56,7 @@ export function InfosFr({ isOpen, close, settingsData }: InfosProps) {
                 name: "Finlande",
                 direction: "SE",
                 distance: 3_206_000,
+                tradeDistance: 1337,
               },
             ]}
             settingsData={settingsData}
@@ -75,6 +77,7 @@ export function InfosFr({ isOpen, close, settingsData }: InfosProps) {
                 name: "Liban",
                 direction: "N",
                 distance: 0,
+                tradeDistance: 1337,
               },
             ]}
             settingsData={settingsData}
