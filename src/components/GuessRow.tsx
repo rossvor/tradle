@@ -9,7 +9,7 @@ import { Guess } from "../domain/guess";
 import React, { useCallback, useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { SettingsData } from "../hooks/useSettings";
-import { getCountryPrettyName } from "../domain/countries";
+import { getCountryPrettyName, formatTradeDistance } from "../domain/countries";
 
 const DIRECTION_ARROWS: Record<Direction, string> = {
   N: "⬆️",
@@ -28,16 +28,6 @@ const DIRECTION_ARROWS: Record<Direction, string> = {
   WNW: "↖️",
   NW: "↖️",
   NNW: "↖️",
-};
-
-const DIRECTION_ARROWS_APRIL_FOOLS: Record<number, string> = {
-  0: "🐶",
-  1: "🌪",
-  2: "🏚",
-  3: "🚲",
-  4: "👠",
-  5: "🦁",
-  6: "🤖",
 };
 
 const SQUARE_ANIMATION_LENGTH = 250;
@@ -88,12 +78,12 @@ export function GuessRow({
 
   // We need to make below dance to make Tailwind build the appropriate col-span-N classes.
   // Simply concatenating the class name doesn't work.
-  const spanN = 3 + (hideDirection ? 1 : 0) + (fuzzyDistance ? 1 : 0);
-  let countryCellSpan = " col-span-3";
-  if (spanN === 4) {
+  const spanN = 2 + (hideDirection ? 1 : 0);
+  let countryCellSpan = " col-span-2";
+  if (spanN === 3) {
+    countryCellSpan = " col-span-3";
+  } else if (spanN === 4) {
     countryCellSpan = " col-span-4";
-  } else if (spanN === 5) {
-    countryCellSpan = " col-span-5";
   }
 
   switch (animationState) {
@@ -163,6 +153,15 @@ export function GuessRow({
               ? formatDistance(guess.distance, distanceUnit)
               : null}
           </div>
+          <div
+            className={
+              guess?.tradeDistance === 0
+                ? "bg-oec-yellow rounded-lg flex items-center justify-center h-8 col-span-2 animate-reveal"
+                : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-2 animate-reveal"
+            }
+          >
+            {formatTradeDistance(guess?.tradeDistance)}
+          </div>
           {!hideDirection && (
             <div
               className={
@@ -178,19 +177,6 @@ export function GuessRow({
                 : guess
                 ? DIRECTION_ARROWS[guess.direction]
                 : null}
-            </div>
-          )}
-          {!fuzzyDistance && (
-            <div
-              className={
-                guess?.distance === 0
-                  ? "bg-oec-yellow rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
-                  : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
-              }
-            >
-              {isAprilFools
-                ? DIRECTION_ARROWS_APRIL_FOOLS[index]
-                : `${proximity}%`}
             </div>
           )}
         </>

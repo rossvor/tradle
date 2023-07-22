@@ -26,8 +26,9 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
         </div>
         <div>Each guess must be a valid country, territory, ...</div>
         <div>
-          After each guess, you will have the distance, the direction and the
-          proximity from your guess and the target country.
+          After each guess, you will have an approximate geographical distance
+          and the total trade volume distance from your guess and the target
+          country.
         </div>
       </div>
       <div className="space-y-3 border-b-2 border-gray-200 pb-3 mb-3">
@@ -40,6 +41,7 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
                 name: "Chile",
                 direction: "NE",
                 distance: 13_557_000,
+                tradeDistance: -91020403,
               },
             ]}
             settingsData={settingsData}
@@ -48,8 +50,8 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
             Your guess <span className="uppercase font-bold">Chile</span> is{" "}
             {formatDistance(13557000, settingsData.distanceUnit)} away from the
             target country, the target country is in the North-East direction
-            and you have a only 32% of proximity because it&apos;s quite far
-            away!
+            and its export trade volume is larger than targer country by
+            $91.02B!
           </div>
         </div>
         <div>
@@ -60,6 +62,7 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
                 name: "Finland",
                 direction: "SE",
                 distance: 3_206_000,
+                tradeDistance: -78851938,
               },
             ]}
             settingsData={settingsData}
@@ -68,7 +71,8 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
             Your second guess{" "}
             <span className="uppercase font-bold">Finland</span> is getting
             closer! {formatDistance(3206000, settingsData.distanceUnit)} away,
-            South-East direction and 84%!
+            South-East direction and its export trade volume is larger than
+            targer country by $78.85B!
           </div>
         </div>
         <div>
@@ -79,6 +83,7 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
                 name: "Lebanon",
                 direction: "N",
                 distance: 0,
+                tradeDistance: 0,
               },
             ]}
             settingsData={settingsData}
